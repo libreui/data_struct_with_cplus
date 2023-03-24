@@ -1,13 +1,14 @@
 /*
  * @Author: Libre Gu 
  * @Date: 2023-03-16 09:34:47
- * @LastEditors: Libre Gu 
- * @LastEditTime: 2023-03-22 19:58:12
- * @FilePath: /cpp/tree/main.cpp
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-03-24 20:54:03
+ * @FilePath: main.cpp
  */
 #include <iostream>
 // #include "CompleteBinaryTree.h"
 #include "BinaryTree.h"
+#include "ThreadBinaryTree.h"
 
 using namespace std;
 
@@ -103,5 +104,16 @@ int main() {
     //用广义表打印二叉树
     bitree.printGList();
 
+    /**** 线索二叉树 ****/
+    char prelist[] = {'A', 'B', 'D', ' ', ' ', 'E', 'G', ' ', ' ', ' ', 'C', 'F', ' ', 'H', ' ', ' ', 'K'};
+    ThreadBinaryTree<char> tbtree(prelist, 17);
+    BinaryTree<char> b(prelist, 17);
+    tbtree.inOrder();
+    b.inOrder();
+    tbtree.preORder();
+    b.preOrder();
+    tbtree.postOrder();
+    b.postOrder();
+    
     return 0;
 }
