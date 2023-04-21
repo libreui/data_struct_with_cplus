@@ -2,13 +2,12 @@
  * @Author: Libre Gu 
  * @Date: 2023-04-21 13:43:14
  * @LastEditors: Libre Gu 
- * @LastEditTime: 2023-04-21 15:45:36
+ * @LastEditTime: 2023-04-21 15:52:23
  * @FilePath: /cpp/huffman/HuffmanTree.h
  * @Description: 
  * Copyright (c) 2023 by Libre, All Rights Reserved. 
  */
 #include<iostream>
-#include<queue>
 #include"TriNode.h"
 using namespace std;
 
