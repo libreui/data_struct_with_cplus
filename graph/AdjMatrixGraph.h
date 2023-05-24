@@ -2,7 +2,7 @@
  * @Author: Libre Gu 
  * @Date: 2023-04-28 13:25:00
  * @LastEditors: Libre Gu 
- * @LastEditTime: 2023-04-28 15:57:06
+ * @LastEditTime: 2023-05-24 16:03:41
  * @FilePath: /cpp/graph/AdjMatrixGraph.h
  * @Description: 
  * Copyright (c) 2023 by Libre, All Rights Reserved. 
@@ -10,9 +10,10 @@
 #include<iostream>
 #include"SeqList.h"
 #include"Edge.h"
+#include"AbstractGraph.h"
 
 template<class T>
-class AdjMatrixGraph
+class AdjMatrixGraph : public AbstractGraph<T>
 {
     private:
         SeqList<T> vertexlist;
@@ -35,6 +36,9 @@ class AdjMatrixGraph
 
         bool removeEdge(int i, int j);
         bool removeVertex(int v, T &old);
+
+        int getFirstNeighbor(int v);
+        int getNextNeighbor(int v, int w);
 
         friend ostream& operator<<(ostream &out, AdjMatrixGraph<T> &graph)
         {
@@ -183,4 +187,24 @@ bool AdjMatrixGraph<T>::removeVertex(int v, T &old)
 
     }
     return false;
+}
+
+template<class T>
+int AdjMatrixGraph<T>::getFirstNeighbor(int v)
+{
+    return getNextNeighbor(v, -1);
+}
+
+template<class T>
+int AdjMatrixGraph<T>::getNextNeighbor(int v, int w)
+{
+    if (v>=0 && v<vertCount && w>=-1 && w<vertCount && v!=w)
+    {
+        for (int j = w+1; j < vertCount; j++)
+        {
+            if (adjmatrix[v][j]>0 && adjmatrix[v][j]<INT_MAX)
+                return j;
+        }
+    }
+    return -1;
 }

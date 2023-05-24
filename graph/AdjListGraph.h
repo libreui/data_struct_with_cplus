@@ -2,7 +2,7 @@
  * @Author: Libre Gu 
  * @Date: 2023-05-17 16:25:50
  * @LastEditors: Libre Gu 
- * @LastEditTime: 2023-05-17 18:06:59
+ * @LastEditTime: 2023-05-24 17:12:01
  * @FilePath: /cpp/graph/AdjListGraph.h
  * @Description: 
  * Copyright (c) 2023 by Libre, All Rights Reserved. 
@@ -10,11 +10,12 @@
 #include<iostream>
 #include<stdexcept>
 #include"Vertex.h"
+#include"AbstractGraph.h"
 
 using namespace std;
 
 template <class T>
-class AdjListGraph
+class AdjListGraph : public AbstractGraph<T>
 {
 private:
     Vertex<T> *vertexlist;
@@ -31,6 +32,9 @@ public:
     bool insertEdge(Edge edge);
     bool removeEdge(int i, int j);
     bool removeVertex(int v, T &old);
+
+    int getFirstNeighbor(int v);
+    int getNextNeighbor(int v, int w);
 
     friend ostream& operator<<(ostream &out, AdjListGraph<T> &graph)
     {
@@ -208,4 +212,26 @@ bool AdjListGraph<T>::removeVertex(int v, T &old)
         }
     }
     return true;
+}
+
+template<class T>
+int AdjListGraph<T>::getFirstNeighbor(int v)
+{
+    return getNextNeighbor(v, -1);
+}
+
+template<class T>
+int AdjListGraph<T>::getNextNeighbor(int v, int w)
+{
+    if (v>=0 && v<vertCount && w>=-1 && w<vertCount && v!=w)
+    {
+        Node<Edge> *p = vertexlist[v].adjlink.head;
+        while (p!=NULL)
+        {
+            if(p->data.dest > w)
+                return p->data.dest;
+            p = p->next;
+        }
+    }
+    return -1;
 }
